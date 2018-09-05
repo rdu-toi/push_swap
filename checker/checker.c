@@ -25,22 +25,36 @@ void	list_check(t_idk *isdk)
 
 void	sa(t_idk *isdk)
 {
+	write(2, "ff3\n", 4);
 	if (isdk->actr > 1)
 	{
-		t_stack *temp;
+		write(2, "ff4\n", 4);
+		int		temp;
 
-		temp = isdk->ahead->next;
-		isdk->ahead->next = temp->next;
-		temp->next = isdk->ahead;
-		isdk->ahead = temp;
+		//write(2, &isdk->ahead->stk, 1);
+		temp = isdk->ahead->stk;
+		write(2, &temp, 1);
+		write(2, "\n", 1);
+		isdk->ahead->stk = isdk->ahead->next->stk;
+		isdk->ahead->next->stk = temp;
+		// t_stack *temp;
+
+		// temp = isdk->ahead->next;
+		// isdk->ahead->next = temp->next;
+		// temp->next = isdk->ahead;
+		// isdk->ahead = temp;
 		list_check(isdk);
 	}
 }
 
 void	ops(t_idk *isdk)
 {
-	if (!ft_strncmp("sa\n", isdk->line, 3))
+	write(2, "ff1\n", 4);
+	if (!ft_strncmp("sa", isdk->line, 2))
+	{
+		write(2, "ff2\n", 4);
 		sa(isdk);
+	}
 /*	else if (!ft_strncmp("sb\n", isdk->line, 3))
 		sb(isdk);
 	else if (!ft_strncmp("ss\n", isdk->line, 3))
@@ -60,9 +74,9 @@ void	ops(t_idk *isdk)
 	else if (!ft_strncmp("rrb\n", isdk->line, 4))
 		rrb(isdk);
 	else if (!ft_strncmp("rrr\n", isdk->line, 4))
-		rrr(isdk);
+		rrr(isdk);*/
 	else
-		error();*/
+		isdk->error = 1;
 }
 
 t_stack	*create_node(char *value)
@@ -103,6 +117,7 @@ int		main(int ac, char **av)
 {
 	t_idk	isdk;
 
+	isdk.error = 0;
 	isdk.actr = 0;
 	isdk.bctr = 0;
 	if (ac > 1)
@@ -111,8 +126,8 @@ int		main(int ac, char **av)
 		list_check(&isdk);
 		while(1)
 		{
-			write(0, "sa\n", 3);
-			if (get_next_line(0, &isdk.line) > 0)
+			get_next_line(0, &isdk.line);
+			if (isdk.error == 0)
 			{
 				ops(&isdk);
 			}

@@ -27,6 +27,7 @@ typedef struct		s_idk
 {
 	int				actr;
 	int				bctr;
+	int				error;
 	char			*line;
 	t_stack			*ahead;
 	t_stack			*bhead;
