@@ -31,6 +31,7 @@ void	sa(t_idk *isdk)
 		write(2, "ff4\n", 4);
 		int		temp;
 
+		printf("%d\n", isdk->ahead->stk);
 		//write(2, &isdk->ahead->stk, 1);
 		temp = isdk->ahead->stk;
 		write(2, &temp, 1);
@@ -128,9 +129,9 @@ int		main(int ac, char **av)
 		{
 			get_next_line(0, &isdk.line);
 			if (isdk.error == 0)
-			{
 				ops(&isdk);
-			}
+			else
+				break;
 		}
 	}
 }
