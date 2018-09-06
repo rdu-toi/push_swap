@@ -15,11 +15,13 @@
 
 void	list_check(t_idk *isdk)
 {
+	t_stack	*temp;
 	int		i = 0;
+	temp = isdk->ahead;
 	while (isdk->ahead)
 	{
 		printf("%d, %d\n", isdk->ahead->stk, isdk->actr - i++);
-		isdk->ahead = isdk->ahead->next;
+		temp = temp->next;
 	}
 }
 
@@ -42,7 +44,7 @@ void	sa(t_idk *isdk)
 
 		// temp = isdk->ahead->next;
 		// isdk->ahead->next = temp->next;
-		// temp->next = isdk->ahead;
+		// temp->next = isdk->ahead;=
 		// isdk->ahead = temp;
 		list_check(isdk);
 	}
