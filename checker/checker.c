@@ -11,135 +11,38 @@
 /* ************************************************************************** */
 
 #include "checker.h"
-#include <stdio.h>
 
-void	list_check(t_idk *isdk)
-{
-	t_stack	*tempa;
-	t_stack	*tempb;
-	int		a = isdk->actr;
-	int		b = isdk->bctr;
-	tempa = isdk->ahead;
-	tempb = isdk->bhead;
-	while (1)
-	{
-		if (a == 0 && b == 0)
-		{
-			printf("_    _\n%d    %d\n", isdk->actr, isdk->bctr);
-			break;
-		}
-		if (a >= b && a)
-		{
-			printf("%d", tempa->stk);
-			tempa = tempa->next;
-			a--;
-		}
-		if (b >= a && b)
-		{
-			printf("    %d\n", tempb->stk);
-			tempb = tempb->next;
-			b--;
-		}
-		else
-			printf("\n");
-	}
-}
-
-void	sa(t_idk *isdk)
-{
-	if (isdk->actr > 1)
-	{
-		int		temp;
-
-		temp = isdk->ahead->stk;
-		isdk->ahead->stk = isdk->ahead->next->stk;
-		isdk->ahead->next->stk = temp;
-		// t_stack *temp;
-
-		// temp = isdk->ahead->next;
-		// isdk->ahead->next = temp->next;
-		// temp->next = isdk->ahead;=
-		// isdk->ahead = temp;
-		list_check(isdk);
-	}
-}
-
-void	sb(t_idk *isdk)
-{
-	if (isdk->bctr > 1)
-	{
-		int		temp;
-
-		temp = isdk->bhead->stk;
-		isdk->bhead->stk = isdk->bhead->next->stk;
-		isdk->bhead->next->stk = temp;
-		// t_stack *temp;
-
-		// temp = isdk->ahead->next;
-		// isdk->ahead->next = temp->next;
-		// temp->next = isdk->ahead;=
-		// isdk->ahead = temp;
-		list_check(isdk);
-	}
-}
-
-void	ss(t_idk *isdk)
-{
-	sa(isdk);
-	sb(isdk);
-}
-
-void	pa(t_idk *isdk)
-{
-	
-}
-
-void	ops(t_idk *isdk)
-{
-	if (!ft_strncmp("sa", isdk->line, 2))
-		sa(isdk);
-	else if (!ft_strncmp("sb", isdk->line, 2))
-		sb(isdk);
-	else if (!ft_strncmp("ss\n", isdk->line, 3))
-		ss(isdk);
-	else if (!ft_strncmp("pa\n", isdk->line, 3))
-		pa(isdk);
-	/*else if (!ft_strncmp("pb\n", isdk->line, 3))
-		pb(isdk);
-	else if (!ft_strncmp("ra\n", isdk->line, 3))
-		ra(isdk);
-	else if (!ft_strncmp("rb\n", isdk->line, 3))
-		rb(isdk);
-	else if (!ft_strncmp("rr\n", isdk->line, 3))
-		rr(isdk);
-	else if (!ft_strncmp("rra\n", isdk->line, 4))
-		rra(isdk);
-	else if (!ft_strncmp("rrb\n", isdk->line, 4))
-		rrb(isdk);
-	else if (!ft_strncmp("rrr\n", isdk->line, 4))
-		rrr(isdk);*/
-	else
-		isdk->error = 1;
-}
-
-t_stack	*create_node(char *value)
+t_stack	*create_node(int value)
 {
 	t_stack	*tmp;
 
 	if (!(tmp = (t_stack *)malloc(sizeof(t_stack))))
 		return (NULL);
-	tmp->stk = ft_atoi(value);
+	tmp->stk = value;
 	tmp->next = NULL;
 	return (tmp);
 }
 
-void	list_add(t_idk *isdk, char *value)
+void	list_add(t_idk *isdk, char *v)
 {
 	t_stack	*list;
+	size_t	i;
 
-	list = isdk->ahead;
-	isdk->ahead = create_node(value);
-	isdk->ahead->next = list;
+	i = 0;
+	while (v[i])
+	{
+		if (v[i] == '-' || (v[i] >= '0' && v[i] <= '9'))
+		{
+			list = isdk->ahead;
+			isdk->ahead = create_node(ft_atoi(&(v[i])));
+			isdk->ahead->next = list;
+			i += ft_strlenc(&v[i], ' ');
+			isdk->actr++;
+		}
+		else if (v[i] == ' ')
+			i++;
+	}
+	free(list);
 }
 
 void	create_stacks(t_idk *isdk, int ac, char **av)
@@ -150,27 +53,31 @@ void	create_stacks(t_idk *isdk, int ac, char **av)
 	isdk->actr = 0;
 	isdk->bctr = 0;
 	while (ac > 1)
-	{
 		list_add(isdk, av[ac-- - 1]);
-		isdk->actr++;
-	}
 }
 
 int		main(int ac, char **av)
 {
 	t_idk	isdk;
 
-	if (ac > 1)
+	if (ac > 1 /*&& check_args(&isdk, ac, av)*/)
 	{
 		create_stacks(&isdk, ac, av);
+			printf("ahead.stk: %d\n", isdk.ahead->next->stk);
 		list_check(&isdk);
-		while(1)
-		{
-			get_next_line(0, &isdk.line);
-			if (isdk.error == 0)
-				ops(&isdk);
-			else
-				break;
-		}
+		// check_dbls(&isdk);
+		// while(!isdk.error)
+		// {
+		// 	get_next_line(0, &isdk.line);
+		// 	printf("Here\n");
+		// 	ops(&isdk);
+		// 	free(isdk.line);
+		// }
+	}
+	if (isdk.error)
+	{
+		free(isdk.ahead);
+		free(isdk.bhead);
+		error();
 	}
 }
