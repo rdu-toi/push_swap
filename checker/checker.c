@@ -16,7 +16,7 @@ t_stack	*create_node(int value)
 {
 	t_stack	*tmp;
 
-	if (!(tmp = (t_stack *)malloc(sizeof(t_stack))))
+	if (!(tmp = (t_stack *)ft_memalloc(sizeof(t_stack))))
 		return (NULL);
 	tmp->stk = value;
 	tmp->next = NULL;
@@ -42,7 +42,6 @@ void	list_add(t_idk *isdk, char *v)
 		else if (v[i] == ' ')
 			i++;
 	}
-	free(list);
 }
 
 void	create_stacks(t_idk *isdk, int ac, char **av)
@@ -60,19 +59,21 @@ int		main(int ac, char **av)
 {
 	t_idk	isdk;
 
-	if (ac > 1 /*&& check_args(&isdk, ac, av)*/)
+	if (ac > 1 && check_args(&isdk, ac, av))
 	{
 		create_stacks(&isdk, ac, av);
-			printf("ahead.stk: %d\n", isdk.ahead->next->stk);
 		list_check(&isdk);
-		// check_dbls(&isdk);
-		// while(!isdk.error)
-		// {
-		// 	get_next_line(0, &isdk.line);
-		// 	printf("Here\n");
-		// 	ops(&isdk);
-		// 	free(isdk.line);
-		// }
+		check_dbls(&isdk);
+			while (1);
+		while(!isdk.error)
+		{
+			get_next_line(0, &isdk.line);
+			ops(&isdk);
+			if (!ft_strcmp("end", isdk->line))
+			if (check_odr(&isdk) && !isdk.bctr)
+				break;
+			free(isdk.line);
+		}
 	}
 	if (isdk.error)
 	{

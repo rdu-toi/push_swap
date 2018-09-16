@@ -5,6 +5,25 @@ void	error(void)
 	write(1, "Error\n", 6);
 }
 
+int		check_odr(t_idk *isdk)
+{
+	t_stack	*temp;
+
+	temp = isdk->ahead;
+	while (temp && temp->next)
+	{
+		if (temp->stk > temp->next->stk)
+			return (0);
+		temp = temp->next;
+	}
+	if (!isdk->bctr)
+	{
+		printf("OK");
+		return (1);
+	}
+	return (0);
+}
+
 void	check_dbls(t_idk *isdk)
 {
 	t_stack	*check;
@@ -27,8 +46,6 @@ void	check_dbls(t_idk *isdk)
 			break;
 		point = point->next;
 	}
-	free(check);
-	free(point);
 }
 
 int		check_num(t_idk *isdk, char *v, int j, int flag)

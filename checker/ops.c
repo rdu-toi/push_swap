@@ -44,7 +44,6 @@ void	pa(t_idk *isdk)
 		isdk->bhead = temp;
 		isdk->actr--;
 		isdk->bctr++;
-		free(temp);
 		list_check(isdk);
 	}
 }
@@ -61,7 +60,6 @@ void	pb(t_idk *isdk)
 		isdk->ahead = temp;
 		isdk->actr++;
 		isdk->bctr--;
-		free(temp);
 		list_check(isdk);
 	}
 }
@@ -80,8 +78,6 @@ void	ra(t_idk *isdk)
 			temp_tail = temp_tail->next;
 		temp_tail->next = temp_head;
 		temp_head->next = NULL;
-		free(temp_head);
-		free(temp_tail);
 		list_check(isdk);
 	}
 }
@@ -100,8 +96,6 @@ void	rb(t_idk *isdk)
 			temp_tail = temp_tail->next;
 		temp_tail->next = temp_head;
 		temp_head->next = NULL;
-		free(temp_head);
-		free(temp_tail);
 		list_check(isdk);
 	}
 }
@@ -127,8 +121,6 @@ void	rra(t_idk *isdk)
 		}
 		isdk->ahead->next = temp_head;
 		temp_tail->next = NULL;
-		free(temp_head);
-		free(temp_tail);
 		list_check(isdk);
 	}
 }
@@ -148,8 +140,6 @@ void	rrb(t_idk *isdk)
 		}
 		isdk->bhead->next = temp_head;
 		temp_tail->next = NULL;
-		free(temp_head);
-		free(temp_tail);
 		list_check(isdk);
 	}
 }
