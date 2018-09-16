@@ -18,7 +18,7 @@ int		check_odr(t_idk *isdk)
 	}
 	if (!isdk->bctr)
 	{
-		printf("OK");
+		write(1, "OK\n", 3);
 		return (1);
 	}
 	return (0);

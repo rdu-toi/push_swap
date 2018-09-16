@@ -150,6 +150,17 @@ void	rrr(t_idk *isdk)
 	rrb(isdk);
 }
 
+void	KO_error(t_idk *isdk)
+{
+	if (!ft_strcmp("end", isdk->line))
+	{
+		write(1, "KO\n", 3);
+		isdk->KO = 1;
+	}
+	else
+		isdk->error = 1;
+}
+
 void	ops(t_idk *isdk)
 {
 	if (!ft_strcmp("sa", isdk->line))
@@ -175,5 +186,5 @@ void	ops(t_idk *isdk)
 	else if (!ft_strcmp("rrr", isdk->line))
 		rrr(isdk);
 	else
-		isdk->error = 1;
+		KO_error(isdk);
 }

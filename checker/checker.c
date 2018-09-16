@@ -51,8 +51,17 @@ void	create_stacks(t_idk *isdk, int ac, char **av)
 	isdk->error = 0;
 	isdk->actr = 0;
 	isdk->bctr = 0;
+	isdk->KO = 0;
 	while (ac > 1)
 		list_add(isdk, av[ac-- - 1]);
+}
+
+void	free_error(t_idk *isdk)
+{
+	free(isdk->ahead);
+	free(isdk->bhead);
+	if (isdk->error)
+		error();
 }
 
 int		main(int ac, char **av)
@@ -64,21 +73,14 @@ int		main(int ac, char **av)
 		create_stacks(&isdk, ac, av);
 		list_check(&isdk);
 		check_dbls(&isdk);
-			while (1);
 		while(!isdk.error)
 		{
 			get_next_line(0, &isdk.line);
 			ops(&isdk);
-			if (!ft_strcmp("end", isdk->line))
-			if (check_odr(&isdk) && !isdk.bctr)
-				break;
 			free(isdk.line);
+			if ((check_odr(&isdk) && !isdk.bctr) || isdk.KO)
+				break;
 		}
 	}
-	if (isdk.error)
-	{
-		free(isdk.ahead);
-		free(isdk.bhead);
-		error();
-	}
+	free_error(&isdk);
 }
