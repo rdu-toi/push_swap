@@ -30,7 +30,12 @@ typedef struct		s_idk
 	int				bctr;
 	int				error;
 	int				KO;
+	int				a;
+	int				b;
+	int				list_flag;
 	char			*line;
+	t_stack			*tempa;
+	t_stack			*tempb;
 	t_stack			*ahead;
 	t_stack			*bhead;
 }					t_idk;

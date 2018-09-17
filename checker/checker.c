@@ -71,8 +71,9 @@ int		main(int ac, char **av)
 	if (ac > 1 && check_args(&isdk, ac, av))
 	{
 		create_stacks(&isdk, ac, av);
-		list_check(&isdk);
 		check_dbls(&isdk);
+		if (!isdk.error)
+		list_check(&isdk);
 		while(!isdk.error)
 		{
 			get_next_line(0, &isdk.line);
