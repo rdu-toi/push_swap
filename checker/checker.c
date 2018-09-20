@@ -26,21 +26,24 @@ t_stack	*create_node(int value)
 void	list_add(t_idk *isdk, char *v)
 {
 	t_stack	*list;
-	size_t	i;
+	int		i;
 
 	i = 0;
 	while (v[i])
+		i++;
+	i--;
+	while (i >= 0)
 	{
-		if (v[i] == '-' || (v[i] >= '0' && v[i] <= '9'))
+		if (v[i] == 'v')
+			break;
+		if (i == 0 || (v[i] == ' ' && v[i - 1] != ' '))
 		{
 			list = isdk->ahead;
 			isdk->ahead = create_node(ft_atoi(&(v[i])));
 			isdk->ahead->next = list;
-			i += ft_strlenc(&v[i], ' ');
 			isdk->actr++;
 		}
-		else if (v[i] == ' ')
-			i++;
+		i--;
 	}
 }
 
@@ -58,10 +61,12 @@ void	create_stacks(t_idk *isdk, int ac, char **av)
 
 void	free_error(t_idk *isdk)
 {
-	free(isdk->ahead);
-	free(isdk->bhead);
+	if (isdk->ahead)
+		free(isdk->ahead);
+	if (isdk->bhead)
+		free(isdk->bhead);
 	if (isdk->error)
-		error();
+		write(1, "Error\n", 6);
 }
 
 int		main(int ac, char **av)
@@ -73,7 +78,8 @@ int		main(int ac, char **av)
 		create_stacks(&isdk, ac, av);
 		check_dbls(&isdk);
 		if (!isdk.error)
-		list_check(&isdk);
+		if (isdk.list_print)
+			list_check(&isdk);
 		while(!isdk.error)
 		{
 			get_next_line(0, &isdk.line);

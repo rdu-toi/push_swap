@@ -1,10 +1,5 @@
 #include "checker.h"
 
-void	error(void)
-{
-	write(1, "Error\n", 6);
-}
-
 int		check_odr(t_idk *isdk)
 {
 	t_stack	*temp;
@@ -48,27 +43,39 @@ void	check_dbls(t_idk *isdk)
 	}
 }
 
-int		check_num(t_idk *isdk, char *v, int j, int flag)
+int		check_flags(t_idk *isdk, char *v, int j)
 {
-	flag = 0;
-	while (v[j])
+	if (v[j] == 'v' && v[j + 1] == '\0')
 	{
-		if (v[j] == '-')
+		isdk->list_print = 1;
+		return (1);
+	}
+	return (0);
+}
+
+int		check_num(t_idk *isdk, char *v, int i, int j)
+{
+	isdk->s = ft_strsplit(v, ' ');
+	while (isdk->s[i])
+	{
+		j = 0;
+		isdk->flag = 0;
+		if (isdk->s[i][j] == '-')
+			j++;
+		while (isdk->s[i][j])
 		{
-			flag = 1;
+			if (j == 1 && isdk->s[i][1] != '\0')
+			{
+				if (isdk->s[i][j - 1] == '-' && check_flags(isdk, isdk->s[i], j))
+					isdk->flag = 1;
+			}
+			if (!(isdk->s[i][j] >= '0' && isdk->s[i][j] <= '9') && !isdk->flag)
+				return (0);
 			j++;
 		}
-		if ((v[j] >= '0' && v[j] <= '9') ||
-			(!flag && ft_isspace(v[j])))
-		{
-			j++;
-			flag = 0;
-		}
-		else
-		{
-			isdk->error = 1;
+		if (ft_strcmp(isdk->s[i], ft_itoa(ft_atoi(isdk->s[i]))) != 0 && !isdk->flag)
 			return (0);
-		}
+		i++;
 	}
 	return (1);
 }
@@ -77,15 +84,18 @@ int		check_args(t_idk *isdk, int ac, char **v)
 {
 	int		i;
 	int		j;
-	int		flag;
+	int		k;
 
+	isdk->list_print = 0;
 	i = 1;
+	j = 0;
+	k = 0;
 	while (i < ac)
 	{
-		j = 0;
-		flag = 0;
-		if(!check_num(isdk, v[i], j, flag))
+		if(!check_num(isdk, v[i], j, k))
 			return (0);
+		if (isdk->s)
+			free (isdk->s);
 		i++;
 	}
 	return (1);

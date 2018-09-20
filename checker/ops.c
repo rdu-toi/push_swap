@@ -9,7 +9,8 @@ void	sa(t_idk *isdk)
 		temp = isdk->ahead->stk;
 		isdk->ahead->stk = isdk->ahead->next->stk;
 		isdk->ahead->next->stk = temp;
-		list_check(isdk);
+		if (isdk->list_print)
+			list_check(isdk);
 	}
 }
 
@@ -22,7 +23,8 @@ void	sb(t_idk *isdk)
 		temp = isdk->bhead->stk;
 		isdk->bhead->stk = isdk->bhead->next->stk;
 		isdk->bhead->next->stk = temp;
-		list_check(isdk);
+		if (isdk->list_print)
+			list_check(isdk);
 	}
 }
 
@@ -44,7 +46,8 @@ void	pa(t_idk *isdk)
 		isdk->bhead = temp;
 		isdk->actr--;
 		isdk->bctr++;
-		list_check(isdk);
+		if (isdk->list_print)
+			list_check(isdk);
 	}
 }
 
@@ -60,105 +63,9 @@ void	pb(t_idk *isdk)
 		isdk->ahead = temp;
 		isdk->actr++;
 		isdk->bctr--;
-		list_check(isdk);
+		if (isdk->list_print)
+			list_check(isdk);
 	}
-}
-
-void	ra(t_idk *isdk)
-{
-	if (isdk->actr >= 2)
-	{
-		t_stack		*temp_tail;
-		t_stack		*temp_head;
-
-		temp_tail = isdk->ahead;
-		temp_head = isdk->ahead;
-		isdk->ahead = isdk->ahead->next;
-		while (temp_tail->next)
-			temp_tail = temp_tail->next;
-		temp_tail->next = temp_head;
-		temp_head->next = NULL;
-		list_check(isdk);
-	}
-}
-
-void	rb(t_idk *isdk)
-{
-	if (isdk->bctr >= 2)
-	{
-		t_stack		*temp_tail;
-		t_stack		*temp_head;
-
-		temp_tail = isdk->bhead;
-		temp_head = isdk->bhead;
-		isdk->bhead = isdk->bhead->next;
-		while (temp_tail->next)
-			temp_tail = temp_tail->next;
-		temp_tail->next = temp_head;
-		temp_head->next = NULL;
-		list_check(isdk);
-	}
-}
-
-void	rr(t_idk *isdk)
-{
-	ra(isdk);
-	rb(isdk);
-}
-
-void	rra(t_idk *isdk)
-{
-	if (isdk->actr >= 2)
-	{
-		t_stack		*temp_head;
-		t_stack		*temp_tail;
-
-		temp_head = isdk->ahead;
-		while (isdk->ahead->next)
-		{
-			temp_tail = isdk->ahead;
-			isdk->ahead = isdk->ahead->next;
-		}
-		isdk->ahead->next = temp_head;
-		temp_tail->next = NULL;
-		list_check(isdk);
-	}
-}
-
-void	rrb(t_idk *isdk)
-{
-	if (isdk->bctr >= 2)
-	{
-		t_stack		*temp_head;
-		t_stack		*temp_tail;
-
-		temp_head = isdk->bhead;
-		while (isdk->bhead->next)
-		{
-			temp_tail = isdk->bhead;
-			isdk->bhead = isdk->bhead->next;
-		}
-		isdk->bhead->next = temp_head;
-		temp_tail->next = NULL;
-		list_check(isdk);
-	}
-}
-
-void	rrr(t_idk *isdk)
-{
-	rra(isdk);
-	rrb(isdk);
-}
-
-void	KO_error(t_idk *isdk)
-{
-	if (!ft_strcmp("end", isdk->line))
-	{
-		write(1, "KO\n", 3);
-		isdk->KO = 1;
-	}
-	else
-		isdk->error = 1;
 }
 
 void	ops(t_idk *isdk)

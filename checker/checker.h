@@ -16,7 +16,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "../libft/libft.h"
-#include <stdio.h>               ///////////////////
 
 typedef struct		s_stack
 {
@@ -32,8 +31,11 @@ typedef struct		s_idk
 	int				KO;
 	int				a;
 	int				b;
+	int				flag;
 	int				list_flag;
+	int				list_print;
 	char			*line;
+	char			**s;
 	t_stack			*tempa;
 	t_stack			*tempb;
 	t_stack			*ahead;
@@ -45,6 +47,14 @@ void	ops(t_idk *isdk);
 void	error(void);
 void	check_dbls(t_idk *isdk);
 int		check_odr(t_idk *isdk);
-void	list_check(t_idk *isdk); ///////////////////
+int		check_flags(t_idk *isdk, char *v, int j);
+void	ra(t_idk *isdk);
+void	rb(t_idk *isdk);
+void	rr(t_idk *isdk);
+void	rra(t_idk *isdk);
+void	rrb(t_idk *isdk);
+void	rrr(t_idk *isdk);
+void	KO_error(t_idk *isdk);
+void	list_check(t_idk *isdk);
 
 #endif
