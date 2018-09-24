@@ -14,7 +14,9 @@ void	ra(t_idk *isdk)
 			temp_tail = temp_tail->next;
 		temp_tail->next = temp_head;
 		temp_head->next = NULL;
-		if (isdk->list_print)
+		if (isdk->ops_print && !isdk->rr)
+			write(1, "ra\n", 3);
+		if (isdk->list_print && !isdk->rr)
 			list_check(isdk);
 	}
 }
@@ -33,6 +35,8 @@ void	rb(t_idk *isdk)
 			temp_tail = temp_tail->next;
 		temp_tail->next = temp_head;
 		temp_head->next = NULL;
+		if (isdk->ops_print && !isdk->rr)
+			write(1, "rb\n", 3);
 		if (isdk->list_print)
 			list_check(isdk);
 	}
@@ -40,8 +44,12 @@ void	rb(t_idk *isdk)
 
 void	rr(t_idk *isdk)
 {
+	isdk->rr = 1;
 	ra(isdk);
+	if (isdk->ops_print)
+		write(1, "rr\n", 3);
 	rb(isdk);
+	isdk->rr = 0;
 }
 
 void	rra(t_idk *isdk)
@@ -59,7 +67,9 @@ void	rra(t_idk *isdk)
 		}
 		isdk->ahead->next = temp_head;
 		temp_tail->next = NULL;
-		if (isdk->list_print)
+		if (isdk->ops_print && !isdk->rr)
+			write(1, "rra\n", 3);
+		if (isdk->list_print && !isdk->rr)
 			list_check(isdk);
 	}
 }
@@ -79,6 +89,8 @@ void	rrb(t_idk *isdk)
 		}
 		isdk->bhead->next = temp_head;
 		temp_tail->next = NULL;
+		if (isdk->ops_print && !isdk->rr)
+			write(1, "rrb\n", 3);
 		if (isdk->list_print)
 			list_check(isdk);
 	}

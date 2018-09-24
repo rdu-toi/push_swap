@@ -34,6 +34,10 @@ typedef struct		s_idk
 	int				flag;
 	int				list_flag;
 	int				list_print;
+	int				ops_print;
+	int				ss;
+	int				rr;
+	int				rrr;
 	char			*line;
 	char			**s;
 	t_stack			*tempa;
@@ -55,6 +59,7 @@ void	rra(t_idk *isdk);
 void	rrb(t_idk *isdk);
 void	rrr(t_idk *isdk);
 void	KO_error(t_idk *isdk);
+void	free_error(t_idk *isdk);
 void	list_check(t_idk *isdk);
 
 #endif

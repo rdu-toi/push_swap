@@ -50,6 +50,11 @@ int		check_flags(t_idk *isdk, char *v, int j)
 		isdk->list_print = 1;
 		return (1);
 	}
+	if (v[j] == 'o' && v[j + 1] == '\0')
+	{
+		isdk->ops_print = 1;
+		return (1);
+	}
 	return (0);
 }
 
@@ -82,21 +87,29 @@ int		check_num(t_idk *isdk, char *v, int i, int j)
 
 int		check_args(t_idk *isdk, int ac, char **v)
 {
-	int		i;
-	int		j;
-	int		k;
-
-	isdk->list_print = 0;
-	i = 1;
-	j = 0;
-	k = 0;
-	while (i < ac)
+	isdk->ahead = NULL;
+	isdk->bhead = NULL;
+	
+	if (ac > 1)
 	{
-		if(!check_num(isdk, v[i], j, k))
-			return (0);
-		if (isdk->s)
-			free (isdk->s);
-		i++;
+		int		i;
+		int		j;
+		int		k;
+
+		isdk->list_print = 0;
+		i = 1;
+		j = 0;
+		k = 0;
+		while (i < ac)
+		{
+			if(!check_num(isdk, v[i], j, k))
+			{
+				isdk->error = 1;
+				return (0);
+			}
+			i++;
+		}
+		return (1);
 	}
-	return (1);
+	return (0);
 }

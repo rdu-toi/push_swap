@@ -2,8 +2,12 @@
 
 void	rrr(t_idk *isdk)
 {
+	isdk->rrr = 1;
 	rra(isdk);
+	if (isdk->ops_print)
+		write(1, "rrr\n", 4);
 	rrb(isdk);
+	isdk->rrr = 0;
 }
 
 void	KO_error(t_idk *isdk)
