@@ -70,7 +70,7 @@ int		main(int ac, char **av)
 	{
 		create_stacks(&isdk, ac, av);
 		check_dbls(&isdk);
-		if (isdk.list_print && isdk.error)
+		if (isdk.list_print && !isdk.error)
 			list_check(&isdk);
 		while(!isdk.error)
 		{
