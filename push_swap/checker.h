@@ -32,14 +32,21 @@ typedef struct		s_idk
 	int				a;
 	int				b;
 	int				flag;
-	int				ss;
-	int				rr;
-	int				rrr;
+	int				ba_dif;
+	int				bb_dif;
+	int				ra_flag;
+	int				rb_flag;
+	int				a_dif;
+	int				b_dif;
+	int				stack_pos;
 	char			**s;
 	t_stack			*tempa;
 	t_stack			*tempb;
 	t_stack			*ahead;
 	t_stack			*bhead;
+	t_stack			*best_move;
+	t_stack			*move_find_a;
+	t_stack			*move_find_b;
 }					t_idk;
 
 int		check_args(t_idk *isdk, int ac, char **v);

@@ -1,4 +1,4 @@
-#include "checker.h"
+	#include "checker.h"
 
 void	sa(t_idk *isdk)
 {
