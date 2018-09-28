@@ -55,6 +55,11 @@ int		check_flags(t_idk *isdk, char *v, int j)
 		isdk->ops_print = 1;
 		return (1);
 	}
+	if (v[j] == 'c' && v[j + 1] == '\0')
+	{
+		isdk->col_print = 1;
+		return (1);
+	}
 	return (0);
 }
 

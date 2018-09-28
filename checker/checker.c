@@ -34,7 +34,7 @@ void	list_add(t_idk *isdk, char *v)
 	i--;
 	while (i >= 0)
 	{
-		if (v[i] == 'v')
+		if (v[i] == 'v' || v[i] == 'o' || v[i] == 'c')
 			break;
 		if (i == 0 || (v[i] == ' ' && v[i - 1] != ' '))
 		{
@@ -66,6 +66,7 @@ int		main(int ac, char **av)
 	t_idk	isdk;
 
 	isdk.ops_print = 0;
+	isdk.col_print = 0;
 	if (ac > 1 && check_args(&isdk, ac, av))
 	{
 		create_stacks(&isdk, ac, av);

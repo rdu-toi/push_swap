@@ -1,4 +1,5 @@
 #include "checker.h"
+#include <stdio.h>
 
 void	space(t_idk *isdk, int flag)
 {
@@ -7,12 +8,15 @@ void	space(t_idk *isdk, int flag)
 	spaces = 1;
 	while (spaces <= ft_nbrlen(isdk->actr) && flag)
 	{
-		write(1, "=", 1);
+		if (isdk->col_print)
+			printf(COLOR_GREEN "=" COLOR_RESET);
+		else
+			printf("=");
 		spaces++;
 	}
 	while (spaces + ft_nbrlen(isdk->actr) <= 15 && !flag)
 	{
-		write(1, " ", 1);
+			printf(" ");
 		spaces++;
 	}
 }
@@ -22,20 +26,27 @@ void	end(t_idk *isdk)
 	space(isdk, 1);
 	space(isdk, 0);
 	space(isdk, 1);
-	write(1,"\n", 1);
-	ft_putnbr(isdk->actr);
+	if (isdk->col_print)
+		printf("\n" COLOR_RED "%d" COLOR_RESET, isdk->actr);
+	else
+		printf("\n%d", isdk->actr);
 	space(isdk, 0);
-	ft_putnbr(isdk->bctr);
-	write(1, "\n", 1);
+	if (isdk->col_print)
+		printf(COLOR_BLUE "%d" COLOR_RESET "\n", isdk->bctr);
+	else
+		printf("%d\n", isdk->bctr);
 	space(isdk, 1);
 	space(isdk, 0);
 	space(isdk, 1);
-	write(1,"\n", 1);
+	printf("\n");
 }
 
 void	lista(t_idk *isdk)
 {
-	ft_putnbr(isdk->tempa->stk);
+	if (isdk->col_print)
+		printf(COLOR_MAGENTA "%d" COLOR_RESET, isdk->tempa->stk);
+	else
+		printf("%d", isdk->tempa->stk);
 	isdk->a--;
 	isdk->list_flag = 1;
 }
@@ -47,15 +58,18 @@ void	listb(t_idk *isdk)
 	spaces = 1;
 	while (isdk->list_flag && spaces + ft_nbrlen(isdk->tempa->stk) <= 15)
 	{
-		write(1, " ", 1);
+		printf(" ");
 		spaces++;
 	}
 	while (!isdk->list_flag && spaces <= 15)
 	{
-		write(1, " ", 1);
+		printf(" ");
 		spaces++;
 	}
-	ft_putnbr(isdk->tempb->stk);
+	if (isdk->col_print)
+		printf(COLOR_CYAN "%d" COLOR_RESET, isdk->tempb->stk);
+	else
+		printf("%d", isdk->tempb->stk);
 	isdk->b--;
 	isdk->tempb = isdk->tempb->next;
 }
@@ -80,6 +94,6 @@ void	list_check(t_idk *isdk)
 			listb(isdk);
 		if (isdk->list_flag)
 			isdk->tempa = isdk->tempa->next;
-		write(1, "\n", 1);
+		printf("\n");
 	}
 }

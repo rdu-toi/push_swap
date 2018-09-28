@@ -69,6 +69,8 @@ int		main(int ac, char **av)
 		while(!isdk.error)
 		{
 			best_move(&isdk);
+			// ft_putnbr_fd(isdk.ba_dif, 2);
+			// ft_putnbr_fd(isdk.bb_dif, 2);
 			print_ops(&isdk);
 			if (check_odr(&isdk) && !isdk.bctr)
 				break;

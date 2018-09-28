@@ -12,7 +12,7 @@ void    more_print_ops(t_idk *isdk)
         ra(isdk);
         isdk->ba_dif--;
     }
-    write(1, "pa\n", 3);
+    pa(isdk);
     while (isdk->rb_true && isdk->fbb_dif)
     {
         rb(isdk);
@@ -59,7 +59,7 @@ void    find_num_of_moves(t_idk *isdk)
     isdk->move_find_b = isdk->bhead;
     isdk->ra_flag = 0;
     isdk->rb_flag = 0;
-    if ((isdk->actr + 1 / isdk->a_dif) == 1)
+    if (isdk->a_dif && (isdk->actr + 1 / isdk->a_dif) == 1)
     {
         isdk->ra_flag = 1;
         isdk->a_dif = isdk->actr + 1 - isdk->a_dif;
@@ -71,7 +71,7 @@ void    find_num_of_moves(t_idk *isdk)
         isdk->move_find_b = isdk->move_find_b->next;
         isdk->b_dif++;
     }
-    if ((isdk->bctr + 1 / isdk->b_dif) == 1)
+    if (isdk->b_dif && (isdk->bctr + 1 / isdk->b_dif) == 1)
     {
         isdk->rb_flag = 1;
         isdk->b_dif = isdk->bctr + 1 - isdk->b_dif;
@@ -84,6 +84,9 @@ void    best_move(t_idk *isdk)
     isdk->stack_pos = 0;
     isdk->ba_dif = 0;
     isdk->bb_dif = 0;
+    isdk->ss = 0;
+    isdk->rr = 0;
+    isdk->rrr = 0;
 
     if (!isdk->bctr && isdk->actr > 1)
     {
