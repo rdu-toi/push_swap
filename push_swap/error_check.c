@@ -73,7 +73,6 @@ int		check_args(t_idk *isdk, int ac, char **v)
 		int		j;
 		int		k;
 
-		isdk->list_print = 0;
 		i = 1;
 		j = 0;
 		k = 0;
