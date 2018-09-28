@@ -34,8 +34,11 @@ typedef struct		s_idk
 	int				flag;
 	int				ba_dif;
 	int				bb_dif;
+	int				fbb_dif;
 	int				ra_flag;
 	int				rb_flag;
+	int				ra_true;
+	int				rb_true;
 	int				a_dif;
 	int				b_dif;
 	int				stack_pos;
@@ -63,5 +66,6 @@ void	rrb(t_idk *isdk);
 void	rrr(t_idk *isdk);
 void	KO_error(t_idk *isdk);
 void	free_error(t_idk *isdk);
+void    best_move(t_idk *isdk;
 
 #endif

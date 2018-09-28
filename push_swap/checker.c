@@ -74,8 +74,9 @@ int		main(int ac, char **av)
 			list_check(&isdk);
 		while(!isdk.error)
 		{
-			sort(&isdk);
-			if ((check_odr(&isdk) && !isdk.bctr) || isdk.KO)
+			best_move(&isdk);
+			print_ops(&isdk);
+			if (check_odr(&isdk) && !isdk.bctr)
 				break;
 		}
 	}
