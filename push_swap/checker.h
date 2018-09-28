@@ -31,6 +31,9 @@ typedef struct		s_idk
 	int				KO;
 	int				a;
 	int				b;
+	int				ss;
+	int				rr;
+	int				rrr;
 	int				flag;
 	int				ba_dif;
 	int				bb_dif;
@@ -47,17 +50,20 @@ typedef struct		s_idk
 	t_stack			*tempb;
 	t_stack			*ahead;
 	t_stack			*bhead;
-	t_stack			*best_move;
 	t_stack			*move_find_a;
 	t_stack			*move_find_b;
 }					t_idk;
 
 int		check_args(t_idk *isdk, int ac, char **v);
-void	ops(t_idk *isdk);
 void	error(void);
 void	check_dbls(t_idk *isdk);
 int		check_odr(t_idk *isdk);
 int		check_flags(t_idk *isdk, char *v, int j);
+void	sa(t_idk *isdk);
+void	sb(t_idk *isdk);
+void	ss(t_idk *isdk);
+void	pa(t_idk *isdk);
+void	pb(t_idk *isdk);
 void	ra(t_idk *isdk);
 void	rb(t_idk *isdk);
 void	rr(t_idk *isdk);
@@ -66,6 +72,7 @@ void	rrb(t_idk *isdk);
 void	rrr(t_idk *isdk);
 void	KO_error(t_idk *isdk);
 void	free_error(t_idk *isdk);
-void    best_move(t_idk *isdk;
+void    best_move(t_idk *isdk);
+void    print_ops(t_idk *isdk);
 
 #endif

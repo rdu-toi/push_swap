@@ -14,6 +14,8 @@ void	ra(t_idk *isdk)
 			temp_tail = temp_tail->next;
 		temp_tail->next = temp_head;
 		temp_head->next = NULL;
+		if (!isdk->rr)
+        	write(1, "ra\n", 3);
 	}
 }
 
@@ -31,13 +33,18 @@ void	rb(t_idk *isdk)
 			temp_tail = temp_tail->next;
 		temp_tail->next = temp_head;
 		temp_head->next = NULL;
+		if (!isdk->rr)
+	        write(1, "rb\n", 3);
 	}
 }
 
 void	rr(t_idk *isdk)
 {
+	isdk->rr = 1;
 	ra(isdk);
 	rb(isdk);
+	write(1, "rr\n", 3);
+	isdk->rr = 0;
 }
 
 void	rra(t_idk *isdk)
@@ -55,6 +62,8 @@ void	rra(t_idk *isdk)
 		}
 		isdk->ahead->next = temp_head;
 		temp_tail->next = NULL;
+		if (!isdk->rrr)
+	        write(1, "rra\n", 3);
 	}
 }
 
@@ -73,5 +82,7 @@ void	rrb(t_idk *isdk)
 		}
 		isdk->bhead->next = temp_head;
 		temp_tail->next = NULL;
+		if (!isdk->rrr)
+	        write(1, "rrb\n", 3);
 	}
 }

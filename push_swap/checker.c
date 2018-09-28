@@ -49,9 +49,6 @@ void	list_add(t_idk *isdk, char *v)
 
 void	create_stacks(t_idk *isdk, int ac, char **av)
 {
-	isdk->ss = 0;
-	isdk->rr = 0;
-	isdk->rrr = 0;
 	isdk->error = 0;
 	isdk->actr = 0;
 	isdk->bctr = 0;
@@ -65,13 +62,10 @@ int		main(int ac, char **av)
 {
 	t_idk	isdk;
 
-	isdk.ops_print = 0;
 	if (ac > 1 && check_args(&isdk, ac, av))
 	{
 		create_stacks(&isdk, ac, av);
 		check_dbls(&isdk);
-		if (isdk.list_print && !isdk.error)
-			list_check(&isdk);
 		while(!isdk.error)
 		{
 			best_move(&isdk);
