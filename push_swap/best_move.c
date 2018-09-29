@@ -1,5 +1,11 @@
 #include "checker.h"
 
+void    push_all_b(t_idk *isdk)
+{
+    while (isdk->bctr)
+        pb(isdk);
+}
+
 void    more_print_ops(t_idk *isdk)
 {
     while (isdk->ra_true && isdk->ba_dif)
@@ -80,10 +86,9 @@ void    find_num_of_moves(t_idk *isdk)
 
 void    best_move(t_idk *isdk)
 {
-    isdk->move_find_a = isdk->ahead;
     isdk->stack_pos = 0;
-    isdk->ba_dif = 0;
-    isdk->bb_dif = 0;
+    isdk->ba_dif = 999999999;
+    isdk->bb_dif = 999999999;
     isdk->ss = 0;
     isdk->rr = 0;
     isdk->rrr = 0;
@@ -95,6 +100,7 @@ void    best_move(t_idk *isdk)
         if (isdk->bhead->stk < isdk->bhead->next->stk)
             sb(isdk);
     }
+    isdk->move_find_a = isdk->ahead;
     while (isdk->move_find_a)
     {
         isdk->a_dif = isdk->stack_pos;

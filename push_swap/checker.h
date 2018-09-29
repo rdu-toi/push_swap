@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "../libft/libft.h"
+#include <stdio.h>			/////////////////////
 
 typedef struct		s_stack
 {
@@ -74,5 +75,6 @@ void	KO_error(t_idk *isdk);
 void	free_error(t_idk *isdk);
 void    best_move(t_idk *isdk);
 void    print_ops(t_idk *isdk);
+void    push_all_b(t_idk *isdk);
 
 #endif

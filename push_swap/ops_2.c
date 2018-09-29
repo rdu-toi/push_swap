@@ -63,7 +63,7 @@ void	rra(t_idk *isdk)
 		isdk->ahead->next = temp_head;
 		temp_tail->next = NULL;
 		if (!isdk->rrr)
-	        write(1, "rra\n", 3);
+	        write(1, "rra\n", 4);
 	}
 }
 
@@ -83,6 +83,6 @@ void	rrb(t_idk *isdk)
 		isdk->bhead->next = temp_head;
 		temp_tail->next = NULL;
 		if (!isdk->rrr)
-	        write(1, "rrb\n", 3);
+	        write(1, "rrb\n", 4);
 	}
 }
