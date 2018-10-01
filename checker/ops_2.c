@@ -68,7 +68,7 @@ void	rra(t_idk *isdk)
 		isdk->ahead->next = temp_head;
 		temp_tail->next = NULL;
 		if (isdk->ops_print && !isdk->rr)
-			write(1, "rra\n", 3);
+			write(1, "rra\n", 4);
 		if (isdk->list_print && !isdk->rr)
 			list_check(isdk);
 	}
@@ -90,7 +90,7 @@ void	rrb(t_idk *isdk)
 		isdk->bhead->next = temp_head;
 		temp_tail->next = NULL;
 		if (isdk->ops_print && !isdk->rr)
-			write(1, "rrb\n", 3);
+			write(1, "rrb\n", 4);
 		if (isdk->list_print)
 			list_check(isdk);
 	}

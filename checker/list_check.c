@@ -13,7 +13,7 @@ void	space(t_idk *isdk, int flag)
 		else
 			printf("=");
 		spaces++;
-	}
+	} 
 	while (spaces + ft_nbrlen(isdk->actr) <= 15 && !flag)
 	{
 			printf(" ");
